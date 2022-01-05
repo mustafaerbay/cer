@@ -1,0 +1,7 @@
+{
+    "go.gopath": "/D/00erbay/projects/cer",
+    "go.testEnvVars": {
+        "GOOS": "windows",
+        "GOARCH": "386"
+    }
+}
