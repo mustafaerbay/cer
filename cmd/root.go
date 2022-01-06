@@ -37,7 +37,10 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		
+		fmt.Fprintln(os.Stderr, "my name is1:",viper.Get("name"))
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -66,8 +69,9 @@ func initConfig() {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
-		home, err := os.UserHomeDir()
+		// Find current directory.
+		
+		home, err := os.Getwd()
 		cobra.CheckErr(err)
 
 		// Search config in home directory with name ".cer" (without extension).
@@ -82,4 +86,5 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+	
 }
