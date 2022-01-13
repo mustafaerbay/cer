@@ -16,62 +16,75 @@ limitations under the License.
 package cmd
 
 import (
-	// "os"
 	"fmt"
 	"log"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
 )
 
-// usersCmd represents the users command
-var usersCmd = &cobra.Command{
-	Use:   "users",
-	Short: "List gitlab users",
-	Long: "List gitlab users",
+// type User struct {
+// 	Username string `json:"username"`
+// 	Active bool `json:"active"`
+// 	Id string `json:"id"`
+// }
+// issuesCmd represents the issues command
+var issuesCmd = &cobra.Command{
+	Use:   "issues",
+	Short: "issue list",
+	Long: `Get issues with given filters`,
 	Run: func(cmd *cobra.Command, args []string) {
-
+		fmt.Println("issues called")
 		yourtokengoeshere := viper.GetString("personal_access_token")
 		url := viper.GetString("repo_url")
-		git, err := gitlab.NewClient(yourtokengoeshere, gitlab.WithBaseURL(url))
+		git, err := gitlab.NewClient(
+			yourtokengoeshere, 
+			gitlab.WithBaseURL(url),
+		)
 		if err != nil {
 			log.Fatalf("Failed to create client: %v", err)
 		}
-		users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
-			Active: gitlab.Bool(true),
-			Username: gitlab.String("m00483517"),
-		})
-		if err != nil {
-			fmt.Errorf("Failed to list users: %v", err)
-		}
-		fmt.Println("user Count:", len(users))
-		for _, v := range users {
-			fmt.Println(v)
-		}
-		get_users, _, err := git.Users.GetUserMemberships(*gitlab.Int(483517),&gitlab.GetUserMembershipOptions{
+		// newUser := User{
+		// 	Active: true,
+		// 	Username: "mustafa erbay",
+		// }
+		// users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
+		// 	Active: &newUser.Active,
+		// 	Username: &newUser.Username,
+			
+		// })
+		// issues, _, err := git.Issues.ListIssues(&gitlab.ListIssuesOptions{
+		// 	AssigneeUsername: utils.StringPtr("m00483517"),
+		// })
 
-		})
+		projects, _, err := git.Projects.ListProjects(nil)
 		if err != nil {
-			fmt.Errorf("Failed to GetUserMemberships users: %v", err)
+			log.Fatal(err)
 		}
-		
-		for _, v := range get_users {
-			fmt.Println(v)
-		}
+	
+		log.Printf("Found %d projects", len(projects))
 
+		// fmt.Println("user Count:", len(users))
+		// if err != nil {
+		// 	fmt.Errorf("Failed to list users: %v", err)
+		// }
+		for _, v := range projects {
+		 	fmt.Println(v)
+		}
 	},
 }
 
 func init() {
-	getCmd.AddCommand(usersCmd)
+	getCmd.AddCommand(issuesCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// usersCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// issuesCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// usersCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// issuesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

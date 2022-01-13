@@ -15,7 +15,9 @@ limitations under the License.
 */
 package main
 
-import "cer/cmd"
+import (
+	"cer/cmd"
+)
 
 func main() {
 	cmd.Execute()
