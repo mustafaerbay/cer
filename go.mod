@@ -8,8 +8,6 @@ require (
 	github.com/xanzy/go-gitlab v0.54.2
 )
 
-require github.com/mrvdot/golang-utils v0.0.0-20141207233330-84173ecd73fd // indirect
-
 require (
 	github.com/Jeffail/gabs v1.4.0
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
@@ -24,12 +22,11 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
-	github.com/mmcdole/gofeed v1.1.3 // indirect
+	github.com/mmcdole/gofeed v1.1.3
 	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
-	github.com/pkg/profile v1.6.0
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

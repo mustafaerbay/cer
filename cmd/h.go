@@ -18,15 +18,16 @@ package cmd
 import (
 	"cer/modals"
 	"encoding/json"
+	"net/http"
+	"cer/internal"
+
 	_ "encoding/json"
 	_ "log"
 
 	"fmt"
-	"net/http"
 
-	"cer/internal"
 
-	_"github.com/Jeffail/gabs"
+	_ "github.com/Jeffail/gabs"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -45,34 +46,29 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("h called")
 		// https://gitlab.com/api/v4/issues?scope=all&state=opened&assignee_username=derekferguson&not[labels]=Category:DAST,devops::secure&not[milestone]=13.11
-		
-		as := "assignee_username=m00483517&"
-		lbl := "not[label_name][]=Verified"
+		repo_url := viper.GetString("repo_url")
+		endp := "api/v4/projects/5674/issues?"
+		repo := repo_url + endp
+		as := "assignee_username=c00600060"
+		// lbl := "labels=Type Bug&"
+		pp := "per_page=100&"
 		// defer profile.Start(profile.CPUProfile, profile.ProfilePath("./cpu")).Stop()
 		// url := viper.GetString("repo_url") + "api/v4/projects/5674/issues?per_page=100"
-		url := viper.GetString("repo_url") + "api/v4/projects/5674/issues?"+ as + lbl +"&per_page=100"
+		// url := internal.Joinstr(repo_url,endp,pp)
+		url := repo +pp+as
 		// url := viper.GetString("repo_url") + "api/v4/projects?per_page=25"
 		fmt.Println(url)
-
 		var issueBody []modals.Issue
 		c := internal.HttpClient()
-		
 		responseBody := internal.SendRequest(c, http.MethodGet, url)
 		json.Unmarshal(responseBody, &issueBody)
-
-		// fmt.Println(issueBody[0].Assignee.Name) // Cihan Biber 00600060
 		fmt.Println("size:",len(issueBody))
-
 		for _, v := range issueBody {
-			// fmt.Println(v.DueDate)
-			fmt.Println(v.IID, "|" ,v.Title)
-			 // , "|")
-			// if v.Assignee.ID == 3005 {
-			// 	// fmt.Println(v.Assignee.Name) // Cihan Biber 00600060
-
-			// }
-	
+			// fmt.Println(v.IID, "|" ,v.Title)
+			fmt.Println(v.IID, "|", v.Assignee.Name,"		|",v.DueDate)
 		}
+
+		internal.GetIssuesByName(c,http.MethodGet,repo,"100","c00600060","Cihan Biber")
 
 	},
 }

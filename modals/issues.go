@@ -20,6 +20,7 @@ package modals
 import (
 	"time"
 )
+type ISOTime time.Time
 
 
 // IssueAuthor represents a author of the issue.
@@ -69,15 +70,15 @@ type IssueLinks struct {
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/issues.html
 type Issue struct {
-	ID                   int                    `json:"id"`
+	// ID                   int                    `json:"id"`
 	IID                  int                    `json:"iid"`
-	ProjectID            int                    `json:"project_id"`
+	// ProjectID            int                    `json:"project_id"`
 	Title                string                 `json:"title"`
 	Assignee             *IssueAssignee         `json:"assignee"`
 	// Labels               []*Label               `json:"labels"`
-	DueDate              *time.Time         		`json:"due_date"`
+	DueDate              *ISOTime        		`json:"due_date"`
 	// ExternalID           string                 `json:"external_id"`
-	// State                string                 `json:"state"`
+	State                string                 `json:"state"`
 	// Description          string                 `json:"description"`
 	// Author               *IssueAuthor           `json:"author"`
 	// Milestone            *Milestone             `json:"milestone"`
@@ -85,12 +86,12 @@ type Issue struct {
 	// UpdatedAt            *time.Time             `json:"updated_at"`
 	// ClosedAt             *time.Time             `json:"closed_at"`
 	// ClosedBy             *IssueCloser           `json:"closed_by"`
-	// CreatedAt            *time.Time             `json:"created_at"`
+	CreatedAt            time.Time             `json:"created_at"`
 	// MovedToID            int                    `json:"moved_to_id"`
 	// // LabelDetails         []*LabelDetails        `json:"label_details"`
 	// Upvotes              int                    `json:"upvotes"`
 	// Downvotes            int                    `json:"downvotes"`
-	// WebURL               string                 `json:"web_url"`
+	WebURL               string                 `json:"web_url"`
 	// References           *IssueReferences       `json:"references"`
 	// // TimeStats            *TimeStats       		`json:"time_stats"`
 	// Confidential         bool                   `json:"confidential"`
@@ -107,6 +108,6 @@ type Issue struct {
 	// TaskCompletionStatus *TasksCompletionStatus `json:"task_completion_status"`
 }
 
-type Issues struct {
-	IssueList []*Issue `json:"issue_list"`
+type IssueList struct {
+	ManyIssues []*Issue `json:"data"`
 }
