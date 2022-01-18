@@ -120,11 +120,11 @@ func GetIssuesByName(client *http.Client, method string, endpoint string , perPa
 	now := time.Now()
 	
 	for i, v := range Issues {
-		fmt.Println("NO:",i+1)
-		fmt.Println("ID:",v.IID)
-		fmt.Println("TITLE:",v.Title)
-		fmt.Println("PAST:",now.Sub(v.CreatedAt).Hours() / 24)
-		fmt.Println("LINK:",v.WebURL)
+		fmt.Println("NO:\t",i+1)
+		fmt.Println("ID:\t",v.IID)
+		fmt.Println("TITLE:\t",v.Title)
+		fmt.Println("PAST:\t",now.Sub(v.CreatedAt).Hours() / 24)
+		fmt.Println("LINK:\t",v.WebURL)
 		fmt.Println("-----")
 	}
 	// list := make([]*modals.Issue, len(responseBody))
