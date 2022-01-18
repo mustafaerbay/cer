@@ -1,0 +1,34 @@
+builds:
+  - id: linux-amd64
+    binary: cer-linux-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+  - id: darwin-amd64
+    binary: cer-darwin-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - darwin
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+  - id: windows-amd64
+    binary: cer-windows-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - -buildmode=exe
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
