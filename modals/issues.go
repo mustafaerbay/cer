@@ -66,6 +66,17 @@ type IssueLinks struct {
 	Project    string `json:"project"`
 }
 
+// LabelDetails represents detailed label information.
+type LabelDetails struct {
+	ID              int    `json:"id"`
+	Name            string `json:"name"`
+	Color           string `json:"color"`
+	Description     string `json:"description"`
+	DescriptionHTML string `json:"description_html"`
+	TextColor       string `json:"text_color"`
+}
+
+type Labels []string
 // Issue represents a GitLab issue.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/issues.html
@@ -75,7 +86,7 @@ type Issue struct {
 	// ProjectID            int                    `json:"project_id"`
 	Title                string                 `json:"title"`
 	Assignee             *IssueAssignee         `json:"assignee"`
-	// Labels               []*Label               `json:"labels"`
+	Labels               Labels          	     `json:"labels"`
 	DueDate              *ISOTime        		`json:"due_date"`
 	// ExternalID           string                 `json:"external_id"`
 	State                string                 `json:"state"`
