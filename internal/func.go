@@ -12,9 +12,42 @@ import (
 	"github.com/spf13/viper"
 
 	"cer/modals"
+	_"cer/config"
 	"fmt"
 )
-
+var (
+	Info = Teal
+	Warn = Yellow
+	Fata = Red
+	Suggestion = Green
+	Bug = Red
+	Dev = Teal
+	Test = Yellow
+	Us = Blue
+	Title = White
+	Sep = Lightblue
+  )
+  
+  var (
+	Black   = Color("\033[1;30m%s\033[0m")
+	Red     = Color("\033[1;31m%s\033[0m")
+	Green   = Color("\033[1;32m%s\033[0m")
+	Yellow  = Color("\033[1;33m%s\033[0m")
+	Blue  = Color("\033[1;34m%s\033[0m")
+	Magenta = Color("\033[1;35m%s\033[0m")
+	Teal    = Color("\033[1;36m%s\033[0m")
+	White   = Color("\033[1;37m%s\033[0m")
+	Lightblue   = Color("\033[1;96m%s\033[0m")
+  )
+  
+  func Color(colorString string) func(...interface{}) string {
+	sprint := func(args ...interface{}) string {
+	  return fmt.Sprintf(colorString,
+		fmt.Sprint(args...))
+	}
+	return sprint
+  }
+  
 func Joinstr(element...string)string{
     return strings.Join(element, "&")
 }
@@ -78,6 +111,8 @@ var (
 	Issue modals.Issue
 	Issues []modals.Issue
 	IssueList modals.IssueList
+	Labels []modals.Label
+	Label modals.Label
 )
 
 //Convert *ItemList to *Item
@@ -113,25 +148,40 @@ func GetIssuesByName(client *http.Client, method string, endpoint string , perPa
 		log.Fatalf("Couldn't parse response body. %+v", err)
 	}
 	json.Unmarshal(responseBody,&Issues)
+	// fmt.Println(Info("hello, world!"))
 
-	// fmt.Println("ISSUE OWNER",username)
-	fmt.Printf("OWNER: %v [%v]",username,len(Issues))
+	fmt.Printf("%v [%v]",White(username),Bug(len(Issues)))
 	fmt.Println("")
 	now := time.Now()
 	
 	for i, v := range Issues {
-		fmt.Println("NO:\t",i+1)
-		fmt.Println("ID:\t",v.IID)
-		fmt.Println("TITLE:\t",v.Title)
-		fmt.Println("PAST:\t",now.Sub(v.CreatedAt).Hours() / 24)
-		fmt.Println("LINK:\t",v.WebURL)
-		fmt.Println("-----")
+		fmt.Printf("%v\t\t\t#%v\t%v \n",i+1,v.IID,Title(v.Title))
+		fmt.Println("\t\t\tPAST:\t",now.Sub(v.CreatedAt).Hours() / 24)
+		fmt.Println("\t\t\tLINK:\t",v.WebURL)
+		// fmt.Printf("ID:\t",v.IID)
+		for _, k := range v.Labels {
+			switch k {
+			case "Type: Bug":
+				fmt.Println(Bug("BUG"))
+			case "Suggestion":
+				fmt.Println(Suggestion("Suggestion"))
+			case "Status: In Dev":
+				fmt.Println(Dev("Status: In Dev"))
+			case "Status: In Test":
+				fmt.Println(Test("Status: In Test"))
+			case "US":
+				fmt.Println(Us("US"))
+			default:
+				fmt.Println(k)
+			}
+		}
+		fmt.Println(Sep("-----------------------------------------------------------------------------------------"))
 	}
 	// list := make([]*modals.Issue, len(responseBody))
 	// json.Unmarshal(responseBody, &IssueList.ManyIssues)
 	//  fmt.Println(issueBody)
 	//  return responseBody
-	fmt.Println("========================================================================================")
+	fmt.Println(Red("==========================================================================================================================================="))
 }
 
 
