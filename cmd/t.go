@@ -48,10 +48,10 @@ to quickly create a Cobra application.`,
 		if err != nil {
 			log.Fatalf("Failed to create client: %v", err)
 		}
-		
+
 		var s []string
-		s = append(s,"US")
-		
+		s = append(s, "US")
+
 		fmt.Println(git.Issues.ListProjectIssues(5674, &gitlab.ListProjectIssuesOptions{
 			ListOptions: gitlab.ListOptions{
 				PerPage: 2,
@@ -63,7 +63,7 @@ to quickly create a Cobra application.`,
 		// 		PerPage: 1,
 		// 	},
 		// }))
-		
+
 	},
 }
 

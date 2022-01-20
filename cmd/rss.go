@@ -17,21 +17,21 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"github.com/spf13/cobra"
 	"github.com/mmcdole/gofeed"
-
+	"github.com/spf13/cobra"
+	"log"
 )
 
 type issue struct {
 	title  string
 	author string
 }
+
 // rssCmd represents the users command
 var rssCmd = &cobra.Command{
 	Use:   "rss",
 	Short: "List gitlab users",
-	Long: "List gitlab users",
+	Long:  "List gitlab users",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		fp := gofeed.NewParser()

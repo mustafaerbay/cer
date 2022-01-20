@@ -1,9 +1,8 @@
 package config
 
 var (
-
 	BuildVersion string
-	BuildTime string
+	BuildTime    string
 )
 
 const (

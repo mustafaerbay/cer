@@ -28,39 +28,41 @@ import (
 var mCmd = &cobra.Command{
 	Use:   "m",
 	Short: "A brief description of your command",
-	Long: ``,
+	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("m called")
 		repo_url := viper.GetString("repo_url")
 		endp := "api/v4/projects/5674/issues?"
 		repo := repo_url + endp
 		c := internal.HttpClient()
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","a00264776","Ahmet Duman")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","a00537946","Ahmet Erol")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","a00608324","ATACAN KULLABCI")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00241020","Baris Can Menekse")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00471095","Bora Gunyel")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00543550","Burcu Bag")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","b84199544","Burak Topcu")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","c00600060","Cihan Biber")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","c84191964","Can Uzunay")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","f00598599","Fatih Dagli")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","g84234118","Gamze Acil")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","h84234119","Hikmet Cakir")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","i00639667","Ibrahim Sahin")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","i00747267","Ismail Oguz Saylan")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","k00540961","Kubilay Ozata")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","m00483517","Mustafa Erbay")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","m84199810","Murat Yuksel")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","m84203416","Murat Dogan")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","n84199803","Neslihan Keser")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","r84234114","Ramazan Biyik")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00324983","Sevket Yurdacan")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00548611","Selim Sahin")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00601060","Suha Kopan")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00618143","Sevcan Erdogan")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","u84184055","Umut Akdenizli")
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","wwx596396","wangpeixi")
+
+		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "a00264776", "Ahmet Duman")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","a00537946","Ahmet Erol")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","a00608324","ATACAN KULLABCI")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00241020","Baris Can Menekse")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00471095","Bora Gunyel")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","b00543550","Burcu Bag")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","b84199544","Burak Topcu")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","c00600060","Cihan Biber")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","c84191964","Can Uzunay")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","f00598599","Fatih Dagli")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","g84234118","Gamze Acil")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","h84234119","Hikmet Cakir")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","i00639667","Ibrahim Sahin")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","i00747267","Ismail Oguz Saylan")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","k00540961","Kubilay Ozata")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","m00483517","Mustafa Erbay")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","m84199810","Murat Yuksel")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","m84203416","Murat Dogan")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","n84199803","Neslihan Keser")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","r84234114","Ramazan Biyik")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00324983","Sevket Yurdacan")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00548611","Selim Sahin")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00601060","Suha Kopan")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","s00618143","Sevcan Erdogan")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","u84184055","Umut Akdenizli")
+		// internal.GetIssuesByName(c,http.MethodGet,repo,"100","wwx596396","wangpeixi")
+
 	},
 }
 

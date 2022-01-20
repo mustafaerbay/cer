@@ -18,17 +18,17 @@ package cmd
 import (
 	// "os"
 	"fmt"
-	"log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
+	"log"
 )
 
 // usersCmd represents the users command
 var usersCmd = &cobra.Command{
 	Use:   "users",
 	Short: "List gitlab users",
-	Long: "List gitlab users",
+	Long:  "List gitlab users",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		yourtokengoeshere := viper.GetString("personal_access_token")
@@ -38,7 +38,7 @@ var usersCmd = &cobra.Command{
 			log.Fatalf("Failed to create client: %v", err)
 		}
 		users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
-			Active: gitlab.Bool(true),
+			Active:   gitlab.Bool(true),
 			Username: gitlab.String("m00483517"),
 		})
 		if err != nil {
@@ -48,13 +48,11 @@ var usersCmd = &cobra.Command{
 		for _, v := range users {
 			fmt.Println(v)
 		}
-		get_users, _, err := git.Users.GetUserMemberships(*gitlab.Int(483517),&gitlab.GetUserMembershipOptions{
-
-		})
+		get_users, _, err := git.Users.GetUserMemberships(*gitlab.Int(483517), &gitlab.GetUserMembershipOptions{})
 		if err != nil {
 			fmt.Errorf("Failed to GetUserMemberships users: %v", err)
 		}
-		
+
 		for _, v := range get_users {
 			fmt.Println(v)
 		}

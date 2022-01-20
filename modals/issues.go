@@ -15,13 +15,11 @@ package modals
 // GET /issues?state=closed
 // GET /issues?state=opened
 
-
-
 import (
 	"time"
 )
-type ISOTime time.Time
 
+type ISOTime time.Time
 
 // IssueAuthor represents a author of the issue.
 type IssueAuthor struct {
@@ -32,6 +30,7 @@ type IssueAuthor struct {
 	AvatarURL string `json:"avatar_url"`
 	Username  string `json:"username"`
 }
+
 // IssueAssignee represents a assignee of the issue.
 type IssueAssignee struct {
 	ID        int    `json:"id"`
@@ -41,6 +40,7 @@ type IssueAssignee struct {
 	AvatarURL string `json:"avatar_url"`
 	Username  string `json:"username"`
 }
+
 // IssueReferences represents references of the issue.
 type IssueReferences struct {
 	Short    string `json:"short"`
@@ -77,32 +77,33 @@ type LabelDetails struct {
 }
 
 type Labels []string
+
 // Issue represents a GitLab issue.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/issues.html
 type Issue struct {
 	// ID                   int                    `json:"id"`
-	IID                  int                    `json:"iid"`
+	IID int `json:"iid"`
 	// ProjectID            int                    `json:"project_id"`
-	Title                string                 `json:"title"`
-	Assignee             *IssueAssignee         `json:"assignee"`
-	Labels               Labels          	     `json:"labels"`
-	DueDate              *ISOTime        		`json:"due_date"`
+	Title    string         `json:"title"`
+	Assignee *IssueAssignee `json:"assignee"`
+	Labels   Labels         `json:"labels"`
+	DueDate  *ISOTime       `json:"due_date"`
 	// ExternalID           string                 `json:"external_id"`
-	State                string                 `json:"state"`
+	State string `json:"state"`
 	// Description          string                 `json:"description"`
-	// Author               *IssueAuthor           `json:"author"`
+	Author *IssueAuthor `json:"author"`
 	// Milestone            *Milestone             `json:"milestone"`
 	// Assignees            []*IssueAssignee       `json:"assignees"`
-	// UpdatedAt            *time.Time             `json:"updated_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 	// ClosedAt             *time.Time             `json:"closed_at"`
 	// ClosedBy             *IssueCloser           `json:"closed_by"`
-	CreatedAt            time.Time             `json:"created_at"`
+	CreatedAt time.Time `json:"created_at"`
 	// MovedToID            int                    `json:"moved_to_id"`
 	// // LabelDetails         []*LabelDetails        `json:"label_details"`
 	// Upvotes              int                    `json:"upvotes"`
 	// Downvotes            int                    `json:"downvotes"`
-	WebURL               string                 `json:"web_url"`
+	WebURL string `json:"web_url"`
 	// References           *IssueReferences       `json:"references"`
 	// // TimeStats            *TimeStats       		`json:"time_stats"`
 	// Confidential         bool                   `json:"confidential"`

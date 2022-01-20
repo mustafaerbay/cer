@@ -17,8 +17,8 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"github.com/spf13/cobra"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -38,8 +38,8 @@ to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		
-		fmt.Fprintln(os.Stderr, "my name is1:",viper.Get("name"))
+
+		fmt.Fprintln(os.Stderr, "my name is1:", viper.Get("name"))
 	},
 }
 
@@ -70,7 +70,7 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	} else {
 		// Find current directory.
-		
+
 		home, err := os.Getwd()
 		cobra.CheckErr(err)
 
@@ -86,5 +86,5 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
-	
+
 }

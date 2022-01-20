@@ -33,13 +33,13 @@ import (
 var issuesCmd = &cobra.Command{
 	Use:   "issues",
 	Short: "issue list",
-	Long: `Get issues with given filters`,
+	Long:  `Get issues with given filters`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("issues called")
 		yourtokengoeshere := viper.GetString("personal_access_token")
 		url := viper.GetString("repo_url")
 		git, err := gitlab.NewClient(
-			yourtokengoeshere, 
+			yourtokengoeshere,
 			gitlab.WithBaseURL(url),
 		)
 		if err != nil {
@@ -52,7 +52,7 @@ var issuesCmd = &cobra.Command{
 		// users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
 		// 	Active: &newUser.Active,
 		// 	Username: &newUser.Username,
-			
+
 		// })
 		// issues, _, err := git.Issues.ListIssues(&gitlab.ListIssuesOptions{
 		// 	AssigneeUsername: utils.StringPtr("m00483517"),
@@ -62,7 +62,7 @@ var issuesCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-	
+
 		log.Printf("Found %d projects", len(projects))
 
 		// fmt.Println("user Count:", len(users))
@@ -70,7 +70,7 @@ var issuesCmd = &cobra.Command{
 		// 	fmt.Errorf("Failed to list users: %v", err)
 		// }
 		for _, v := range projects {
-		 	fmt.Println(v)
+			fmt.Println(v)
 		}
 	},
 }

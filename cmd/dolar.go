@@ -26,10 +26,11 @@ import (
 )
 
 type bpi struct {
-	Code string `json:"code"`
-	Rate string `json:"rate"`
+	Code        string `json:"code"`
+	Rate        string `json:"rate"`
 	Description string `json:"description"`
 }
+
 // dolarCmd represents the dolar command
 var dolarCmd = &cobra.Command{
 	Use:   "dolar",
@@ -47,19 +48,18 @@ var dolarCmd = &cobra.Command{
 		if err != nil {
 			panic(err.Error())
 		}
-	
+
 		body, err := ioutil.ReadAll(res.Body)
-	
+
 		if err != nil {
 			panic(err.Error())
 		}
-	
+
 		// var data bpi
 		data2, _ := json.Marshal(body)
-		
+
 		fmt.Printf("Results: %v\n", data2)
 		os.Exit(0)
-
 
 	},
 }

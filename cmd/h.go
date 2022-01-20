@@ -16,16 +16,15 @@ limitations under the License.
 package cmd
 
 import (
+	"cer/internal"
 	"cer/modals"
 	"encoding/json"
 	"net/http"
-	"cer/internal"
 
 	_ "encoding/json"
 	_ "log"
 
 	"fmt"
-
 
 	_ "github.com/Jeffail/gabs"
 	"github.com/spf13/cobra"
@@ -55,20 +54,20 @@ to quickly create a Cobra application.`,
 		// defer profile.Start(profile.CPUProfile, profile.ProfilePath("./cpu")).Stop()
 		// url := viper.GetString("repo_url") + "api/v4/projects/5674/issues?per_page=100"
 		// url := internal.Joinstr(repo_url,endp,pp)
-		url := repo +pp+as
+		url := repo + pp + as
 		// url := viper.GetString("repo_url") + "api/v4/projects?per_page=25"
 		fmt.Println(url)
 		var issueBody []modals.Issue
 		c := internal.HttpClient()
 		responseBody := internal.SendRequest(c, http.MethodGet, url)
 		json.Unmarshal(responseBody, &issueBody)
-		fmt.Println("size:",len(issueBody))
+		fmt.Println("size:", len(issueBody))
 		for _, v := range issueBody {
 			// fmt.Println(v.IID, "|" ,v.Title)
-			fmt.Println(v.IID, "|", v.Assignee.Name,"		|",v.DueDate)
+			fmt.Println(v.IID, "|", v.Assignee.Name, "		|", v.DueDate)
 		}
 
-		internal.GetIssuesByName(c,http.MethodGet,repo,"100","c00600060","Cihan Biber")
+		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "c00600060", "Cihan Biber")
 
 	},
 }
