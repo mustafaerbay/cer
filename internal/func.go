@@ -109,11 +109,7 @@ func SendRequest(client *http.Client, method string, endpoint string) []byte {
 
 // Golang Variable Declaration Block
 var (
-	Issue     modals.Issue
 	Issues    []modals.Issue
-	IssueList modals.IssueList
-	Labels    []modals.Label
-	Label     modals.Label
 )
 
 // TODO: https://stackoverflow.com/questions/55440854/how-do-i-return-data-from-a-for-loop-in-go
@@ -187,14 +183,3 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 	fmt.Println(Red("==========================================================================================================================================="))
 }
 
-// func (s *modals.Issues) GetIssuesByName(repo_url string, c *http.Client) *modals.Issues {
-
-// 	responseBody := SendRequest(c, http.MethodGet, repo_url)
-// 	json.Unmarshal(responseBody, []modals.Issue)
-
-// 	return modals.Issues{IssueList: issueBody}
-// }
-
-// func (b GroupIssueBoard) String() string {
-// 	return Stringify(b)
-// }
