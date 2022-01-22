@@ -169,8 +169,11 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 				fmt.Println(k)
 			}
 		}
-		fmt.Println("Created at: ", v.CreatedAt, "--->", Red(math.Round(now.Sub(v.CreatedAt).Hours()/24), "Days Ago"))
-		fmt.Println("Updated at: ", v.UpdatedAt)
+		// d := time.
+		// fmt.Println(now.Sub(v.CreatedAt).Round(d))
+		fmt.Println("Created at: \t", v.CreatedAt.Format("2006-01-01"), "--->", Red(math.Round(now.Sub(v.CreatedAt).Hours()/24), " Days Ago"))
+		fmt.Println("Last Updated at: \t", Red(math.Round(now.Sub(v.UpdatedAt).Hours()/24), " Days Ago"))
+		// fmt.Println("Updated at: ", v.UpdatedAt.Format("2006-01-01"))
 		fmt.Println("Created by: ", v.Author.Name)
 		fmt.Println("LINK:\t", v.WebURL)
 		fmt.Println(Sep("-----------------------------------------------------------------------------------------"))
