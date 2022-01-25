@@ -42,7 +42,7 @@ var usersCmd = &cobra.Command{
 			Username: gitlab.String("m00483517"),
 		})
 		if err != nil {
-			fmt.Errorf("Failed to list users: %v", err)
+			log.Printf("Failed to list users: %v", err)
 		}
 		fmt.Println("user Count:", len(users))
 		for _, v := range users {
@@ -50,7 +50,9 @@ var usersCmd = &cobra.Command{
 		}
 		get_users, _, err := git.Users.GetUserMemberships(*gitlab.Int(483517), &gitlab.GetUserMembershipOptions{})
 		if err != nil {
-			fmt.Errorf("Failed to GetUserMemberships users: %v", err)
+			log.Printf("Failed to GetUserMemberships users: %v", err)
+
+
 		}
 
 		for _, v := range get_users {
