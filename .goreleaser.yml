@@ -11,12 +11,12 @@ builds:
     ldflags:
       - "{{ .Env.LDFLAGS }}"
     no_unique_dist_dir: true
-    env: 
-      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
+    env:
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
 
   - id: darwin-amd64
     env: 
-      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
     binary: cer-darwin-{{ .Arch }}
     main: ./main.go
     goos:
@@ -29,7 +29,7 @@ builds:
 
   - id: windows-amd64
     env: 
-      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
     binary: cer-windows-{{ .Arch }}
     main: ./main.go
     goos:
