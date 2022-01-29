@@ -18,15 +18,13 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	// "github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
 )
-
-type Labels struct {
-	Name []string
-}
 
 // tCmd represents the t command
 var tCmd = &cobra.Command{
@@ -40,19 +38,20 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("t called")
-		git, err := gitlab.NewBasicAuthClient(
-			"m00483517",
-			"qwe123QWE!!!@",
+		_ , b := os.LookupEnv("GITLAB_USER_PASSWORD")
+		if  !b {
+			log.Fatal("GITLAB_USER_PASSWORD not exist in env variables")
+		}
+		client, err := gitlab.NewBasicAuthClient(
+			viper.GetString("project.username"),
+			os.Getenv("GITLAB_USER_PASSWORD"),
 			gitlab.WithBaseURL("https://rnd-gitlab-eu.huawei.com/"),
 		)
 		if err != nil {
 			log.Fatalf("Failed to create client: %v", err)
 		}
 
-		var s []string
-		s = append(s, "US")
-
-		fmt.Println(git.Issues.ListProjectIssues(5674, &gitlab.ListProjectIssuesOptions{
+		fmt.Println(client.Issues.ListProjectIssues(5674, &gitlab.ListProjectIssuesOptions{
 			ListOptions: gitlab.ListOptions{
 				PerPage: 2,
 			},
@@ -74,11 +73,8 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// tCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// tCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	tCmd.PersistentFlags().String("repo_url", "-r", "A help for foo")
+	tCmd.Flags()
 }
 
 // GitlabSCM implements the SCM interface.

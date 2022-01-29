@@ -40,15 +40,10 @@ var rssCmd = &cobra.Command{
 		checkError("gitlabURL not reachable", err)
 
 		for i := 0; i < len(feed.Items); i++ {
-			// fmt.Printf("%s|%s", feed.Items[i].Title, feed.Items[i].Author.Name)
-			// 	fmt.Println("")
 			newissue := issue{
 				title:  feed.Items[i].Title,
 				author: feed.Items[i].Author.Name,
 			}
-			// val1=s+strconv.Itoa(i+1)
-			// val2string := strconv.Itoa(i+1) + "|" + newissue.title + "|" + newissue.author
-			// fmt.Println(val2string)
 			fmt.Println("-------------------------------------")
 			fmt.Println(newissue.author)
 			fmt.Println(newissue.title)
@@ -60,15 +55,6 @@ var rssCmd = &cobra.Command{
 func init() {
 	getCmd.AddCommand(rssCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// rssCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// rssCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 func checkError(message string, err error) {
 	if err != nil {

@@ -21,7 +21,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	_ "encoding/json"
 	_ "log"
 
 	"fmt"
@@ -45,7 +44,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("h called")
 		// https://gitlab.com/api/v4/issues?scope=all&state=opened&assignee_username=derekferguson&not[labels]=Category:DAST,devops::secure&not[milestone]=13.11
-		repo_url := viper.GetString("repo_url")
+		repo_url := viper.GetString("project.repo_url")
 		endp := "api/v4/projects/5674/issues?"
 		repo := repo_url + endp
 		as := "assignee_username=c00600060"
@@ -66,8 +65,9 @@ to quickly create a Cobra application.`,
 			// fmt.Println(v.IID, "|" ,v.Title)
 			fmt.Println(v.IID, "|", v.Assignee.Name, "		|", v.DueDate)
 		}
-
-		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "c00600060", "Cihan Biber")
+		ch := make(chan bool)
+		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "c00600060", "Cihan Biber", ch)
+		<-ch
 
 	},
 }
@@ -75,13 +75,4 @@ to quickly create a Cobra application.`,
 func init() {
 	rootCmd.AddCommand(hCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// hCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// hCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

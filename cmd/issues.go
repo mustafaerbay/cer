@@ -24,11 +24,6 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-// type User struct {
-// 	Username string `json:"username"`
-// 	Active bool `json:"active"`
-// 	Id string `json:"id"`
-// }
 // issuesCmd represents the issues command
 var issuesCmd = &cobra.Command{
 	Use:   "issues",
@@ -36,7 +31,7 @@ var issuesCmd = &cobra.Command{
 	Long:  `Get issues with given filters`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("issues called")
-		yourtokengoeshere := viper.GetString("personal_access_token")
+		yourtokengoeshere := viper.GetString("project.personal_access_token")
 		url := viper.GetString("repo_url")
 		git, err := gitlab.NewClient(
 			yourtokengoeshere,
@@ -45,18 +40,6 @@ var issuesCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("Failed to create client: %v", err)
 		}
-		// newUser := User{
-		// 	Active: true,
-		// 	Username: "mustafa erbay",
-		// }
-		// users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
-		// 	Active: &newUser.Active,
-		// 	Username: &newUser.Username,
-
-		// })
-		// issues, _, err := git.Issues.ListIssues(&gitlab.ListIssuesOptions{
-		// 	AssigneeUsername: utils.StringPtr("m00483517"),
-		// })
 
 		projects, _, err := git.Projects.ListProjects(nil)
 		if err != nil {
@@ -65,10 +48,6 @@ var issuesCmd = &cobra.Command{
 
 		log.Printf("Found %d projects", len(projects))
 
-		// fmt.Println("user Count:", len(users))
-		// if err != nil {
-		// 	fmt.Errorf("Failed to list users: %v", err)
-		// }
 		for _, v := range projects {
 			fmt.Println(v)
 		}
@@ -77,14 +56,4 @@ var issuesCmd = &cobra.Command{
 
 func init() {
 	getCmd.AddCommand(issuesCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// issuesCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// issuesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

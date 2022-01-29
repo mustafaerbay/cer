@@ -42,6 +42,10 @@ var (
 	Lightblue = Color("\033[1;96m%s\033[0m")
 )
 
+type Person struct {
+	Name string `*Info,json:"name"`
+}
+
 func Color(colorString string) func(...interface{}) string {
 	sprint := func(args ...interface{}) string {
 		return fmt.Sprintf(colorString,
@@ -59,7 +63,7 @@ type AddHeaderTransport struct {
 }
 
 func (adt *AddHeaderTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Add("PRIVATE-TOKEN", viper.GetString("personal_access_token"))
+	req.Header.Add("PRIVATE-TOKEN", viper.GetString("project.personal_access_token"))
 	return adt.T.RoundTrip(req)
 }
 
@@ -113,7 +117,7 @@ var (
 )
 
 // TODO: https://stackoverflow.com/questions/55440854/how-do-i-return-data-from-a-for-loop-in-go
-func GetIssuesByName(client *http.Client, method string, endpoint string, perPage string, userid string, username string) {
+func GetIssuesByName(client *http.Client, method string, endpoint string, perPage string, userid string, username string, ch chan bool) {
 	// m := make(map[string]string)
 	as := "per_page=" + perPage + "&" + "assignee_username=" + userid + "&not[labels]=Verified,Status%3A+Invalid"
 	endpoint = endpoint + as
@@ -184,5 +188,6 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 	//  fmt.Println(issueBody)
 	//  return responseBody
 	fmt.Println(Red("==========================================================================================================================================="))
+	ch <- true
 }
 

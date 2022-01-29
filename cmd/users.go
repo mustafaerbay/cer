@@ -31,7 +31,7 @@ var usersCmd = &cobra.Command{
 	Long:  "List gitlab users",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		yourtokengoeshere := viper.GetString("personal_access_token")
+		yourtokengoeshere := viper.GetString("project.personal_access_token")
 		url := viper.GetString("repo_url")
 		git, err := gitlab.NewClient(yourtokengoeshere, gitlab.WithBaseURL(url))
 		if err != nil {
@@ -39,7 +39,7 @@ var usersCmd = &cobra.Command{
 		}
 		users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
 			Active:   gitlab.Bool(true),
-			Username: gitlab.String("m00483517"),
+			Username: gitlab.String(viper.GetString("project.personal_access_token")),
 		})
 		if err != nil {
 			log.Printf("Failed to list users: %v", err)
@@ -64,14 +64,4 @@ var usersCmd = &cobra.Command{
 
 func init() {
 	getCmd.AddCommand(usersCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// usersCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// usersCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
