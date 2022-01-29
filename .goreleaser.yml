@@ -1,4 +1,6 @@
 builds:
+  - env: 
+      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
   - id: linux-amd64
     binary: cer-linux-{{ .Arch }}
     main: ./main.go
