@@ -65,9 +65,7 @@ to quickly create a Cobra application.`,
 			// fmt.Println(v.IID, "|" ,v.Title)
 			fmt.Println(v.IID, "|", v.Assignee.Name, "		|", v.DueDate)
 		}
-		ch := make(chan bool)
-		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "c00600060", "Cihan Biber", ch)
-		<-ch
+		internal.GetIssuesByName(c, http.MethodGet, repo, "100", "c00600060", "Cihan Biber")
 
 	},
 }

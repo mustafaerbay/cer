@@ -117,7 +117,7 @@ var (
 )
 
 // TODO: https://stackoverflow.com/questions/55440854/how-do-i-return-data-from-a-for-loop-in-go
-func GetIssuesByName(client *http.Client, method string, endpoint string, perPage string, userid string, username string, ch chan bool) {
+func GetIssuesByName(client *http.Client, method string, endpoint string, perPage string, userid string, username string) {
 	// m := make(map[string]string)
 	as := "per_page=" + perPage + "&" + "assignee_username=" + userid + "&not[labels]=Verified,Status%3A+Invalid"
 	endpoint = endpoint + as
@@ -188,6 +188,5 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 	//  fmt.Println(issueBody)
 	//  return responseBody
 	fmt.Println(Red("==========================================================================================================================================="))
-	ch <- true
 }
 
