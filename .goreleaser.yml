@@ -1,46 +1,21 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+    # you may remove this if you don't need go generate
+    - go generate ./...
 builds:
-  - env: 
-      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
-  - id: linux-amd64
-    binary: cer-linux-{{ .Arch }}
-    main: ./main.go
+  - env:
+      - CGO_ENABLED=0
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
     goos:
       - linux
-    goarch:
-      - amd64
-    ldflags:
-      - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
-    env:
-      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
-
-  - id: darwin-amd64
-    env: 
-      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
-    binary: cer-darwin-{{ .Arch }}
-    main: ./main.go
-    goos:
-      - darwin
-    goarch:
-      - amd64
-    ldflags:
-      - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
-
-  - id: windows-amd64
-    env: 
-      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
-    binary: cer-windows-{{ .Arch }}
-    main: ./main.go
-    goos:
       - windows
-    goarch:
-      - amd64
+      - darwin
     ldflags:
-      - -buildmode=exe
       - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
-
 archives:
   - replacements:
       darwin: Darwin
@@ -48,3 +23,13 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

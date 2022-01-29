@@ -1,0 +1,50 @@
+builds:
+  - env: 
+      - LDFLAGS="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"
+  - id: linux-amd64
+    binary: cer-linux-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+    env:
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
+
+  - id: darwin-amd64
+    env: 
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
+    binary: cer-darwin-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - darwin
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+  - id: windows-amd64
+    env: 
+      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
+    binary: cer-windows-{{ .Arch }}
+    main: ./main.go
+    goos:
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - -buildmode=exe
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
