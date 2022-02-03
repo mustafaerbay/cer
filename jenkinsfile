@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        label 'golang118'
+    }
+    stages {
+        stage('Checkout') {            
+            steps {
+                git branch: 'main', credentialsId: 'github_credentials', url: 'https://github.com/mustafaerbay/cer.git'
+            }
+        }
+        stage('Example Build') {            
+            steps {
+                echo 'Hello, Maven'
+                sh 'go build .'
+                sh 'ls -all'
+                sh 'chmod +x cer*'
+            }
+        }
+        stage('Example Test') {            
+            steps {
+                echo 'go test'
+                sh './cer version'
+            }
+        }
+    }
+}
