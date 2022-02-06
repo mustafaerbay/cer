@@ -9,7 +9,7 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
-      - LDFLAGS=-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'
+      - LDFLAGS=-X 'cer/config.BuildVersion={{.Version}}' -X 'cer/config.BuildTime={{.Date}}'
     goos:
       - linux
       - windows
