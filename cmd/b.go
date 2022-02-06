@@ -16,52 +16,44 @@ limitations under the License.
 package cmd
 
 import (
-	// "os"
 	"fmt"
+	"log"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
-	"log"
 )
 
-// usersCmd represents the users command
-var usersCmd = &cobra.Command{
-	Use:   "users",
-	Short: "List gitlab users",
-	Long:  "List gitlab users",
+// issuesCmd represents the issues command
+var issuesCmd = &cobra.Command{
+	Use:   "issues",
+	Short: "issue list",
+	Long:  `Get issues with given filters`,
 	Run: func(cmd *cobra.Command, args []string) {
-
+		fmt.Println("issues called")
 		yourtokengoeshere := viper.GetString("project.personal_access_token")
 		url := viper.GetString("repo_url")
-		git, err := gitlab.NewClient(yourtokengoeshere, gitlab.WithBaseURL(url))
+		git, err := gitlab.NewClient(
+			yourtokengoeshere,
+			gitlab.WithBaseURL(url),
+		)
 		if err != nil {
 			log.Fatalf("Failed to create client: %v", err)
 		}
-		users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{
-			Active:   gitlab.Bool(true),
-			Username: gitlab.String(viper.GetString("project.personal_access_token")),
-		})
+
+		projects, _, err := git.Projects.ListProjects(nil)
 		if err != nil {
-			log.Printf("Failed to list users: %v", err)
+			log.Fatal(err)
 		}
-		fmt.Println("user Count:", len(users))
-		for _, v := range users {
+
+		log.Printf("Found %d projects", len(projects))
+
+		for _, v := range projects {
 			fmt.Println(v)
 		}
-		get_users, _, err := git.Users.GetUserMemberships(*gitlab.Int(483517), &gitlab.GetUserMembershipOptions{})
-		if err != nil {
-			log.Printf("Failed to GetUserMemberships users: %v", err)
-
-
-		}
-
-		for _, v := range get_users {
-			fmt.Println(v)
-		}
-
 	},
 }
 
 func init() {
-	getCmd.AddCommand(usersCmd)
+	rootCmd.AddCommand(issuesCmd)
 }
