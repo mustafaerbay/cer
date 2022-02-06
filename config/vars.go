@@ -3,6 +3,7 @@ package config
 var (
 	BuildVersion string
 	BuildTime    string
+	CommitHash    string
 )
 
 const (

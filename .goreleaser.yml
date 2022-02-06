@@ -9,7 +9,7 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
-      - LDFLAGS=-X 'cer/config.BuildVersion={{.Version}}' -X 'cer/config.BuildTime={{.Date}}'
+      - LDFLAGS=-X 'cer/config.BuildVersion={{.Version}}' -X 'cer/config.BuildTime={{.Date}}' -X 'cer/config.CommitHash={{.FullCommit}}'
     goos:
       - linux
       - windows

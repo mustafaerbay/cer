@@ -28,11 +28,12 @@ var vCmd = &cobra.Command{
 	Short: "show version info",
 	Long: `BuildTime
 	 BuildVersion
-	 Github Tag`,
+	 Commit hash`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("version called")
 		fmt.Println("Build Version:\t", config.BuildVersion)
 		fmt.Println("Build Time:\t", config.BuildTime)
+		fmt.Println("Commit hash:\t", config.CommitHash)
 
 	},
 }
