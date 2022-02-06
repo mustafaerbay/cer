@@ -26,16 +26,13 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-// tCmd represents the t command
-var tCmd = &cobra.Command{
-	Use:   "t",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+// cCmd represents the t command
+var cCmd = &cobra.Command{
+	Use:   "c",
+	Short: "CCOMS project issue by only one user",
+	Long: `You can search for issue list by userid
+GITLAB_USER_PASSWORD has to be defined as an environment variable
+project.username has to be defined in .cer.yaml file`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("t called")
 		_ , b := os.LookupEnv("GITLAB_USER_PASSWORD")
@@ -67,14 +64,14 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	rootCmd.AddCommand(tCmd)
+	rootCmd.AddCommand(cCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	tCmd.PersistentFlags().String("repo_url", "-r", "A help for foo")
-	tCmd.Flags()
+	cCmd.PersistentFlags().String("repo_url", "-r", "A help for foo")
+	cCmd.Flags()
 }
 
 // GitlabSCM implements the SCM interface.

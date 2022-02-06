@@ -23,8 +23,8 @@ import (
 )
 
 // versionCmd represents the version command
-var versionCmd = &cobra.Command{
-	Use:   "version",
+var vCmd = &cobra.Command{
+	Use:   "v",
 	Short: "show version info",
 	Long: `BuildTime
 	 BuildVersion
@@ -38,5 +38,5 @@ var versionCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(vCmd)
 }

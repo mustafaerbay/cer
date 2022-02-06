@@ -24,15 +24,15 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-// issuesCmd represents the issues command
-var issuesCmd = &cobra.Command{
-	Use:   "issues",
+// bCmd represents the issues command
+var bCmd = &cobra.Command{
+	Use:   "b",
 	Short: "issue list",
 	Long:  `Get issues with given filters`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("issues called")
 		yourtokengoeshere := viper.GetString("project.personal_access_token")
-		url := viper.GetString("repo_url")
+		url := viper.GetString("project.repo_url")
 		git, err := gitlab.NewClient(
 			yourtokengoeshere,
 			gitlab.WithBaseURL(url),
@@ -55,5 +55,5 @@ var issuesCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(issuesCmd)
+	rootCmd.AddCommand(bCmd)
 }

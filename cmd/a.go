@@ -25,10 +25,10 @@ import (
 )
 
 // mCmd represents the m command
-var mCmd = &cobra.Command{
-	Use:   "m",
-	Short: "A brief description of your command",
-	Long:  ``,
+var aCmd = &cobra.Command{
+	Use:   "a",
+	Short: "CCOMs issue list",
+	Long:  ` All CCOMs issue list in gitlab, according to related issue label`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("m called")
 		repo_url := viper.GetString("project.repo_url")
@@ -80,6 +80,6 @@ var mCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(mCmd)
+	rootCmd.AddCommand(aCmd)
 
 }
