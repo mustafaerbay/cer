@@ -11,6 +11,6 @@ LDFLAGS=(
   "-X 'cer/config.BuildTime=${BUILD_TIMESTAMP}'"
 )
 
-# STEP 3: Actual Go build process
+go build -ldflags="${LDFLAGS[*]}" -o dist/cer_linux_386/cer
 
-go build -ldflags="${LDFLAGS[*]}"
+docker build .

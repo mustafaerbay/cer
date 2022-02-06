@@ -10,8 +10,8 @@ pipeline {
         }
         stage('Example Build') {            
             steps {
-                echo 'Hello, Maven'
-                sh 'go build .'
+                sh 'export GITHUB_TOKEN=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'
+                sh 'go build -ldflags="-X 'cer/config.BuildVersion=1.0.0' -X 'cer/config.BuildTime=$(date)'"'
                 sh 'ls -all'
                 sh 'chmod +x cer*'
             }
