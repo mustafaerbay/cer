@@ -23,7 +23,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
-
+var configFile string
 // mCmd represents the m command
 var aCmd = &cobra.Command{
 	Use:   "a",
@@ -96,5 +96,7 @@ go run .\main.go a --config ./asd.yml
 
 func init() {
 	rootCmd.AddCommand(aCmd)
+	aCmd.Flags().StringVarP(&configFile, "configFile", "c", "", "project search")
+	aCmd.MarkFlagRequired("configFile")
 
 }
