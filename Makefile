@@ -1,19 +1,5 @@
-BINARY_NAME=cer
-
-build:
- GOARCH=amd64 GOOS=darwin go build -o ${BINARY_NAME}-darwin main.go
- GOARCH=amd64 GOOS=linux go build -o ${BINARY_NAME}-linux main.go
- GOARCH=amd64 GOOS=linux go build -o ${BINARY_NAME}-linux main.go
- GOARCH=x86_64 GOOS=windows go build -o ${BINARY_NAME}-windows main.go
- GOARCH=amd64 GOOS=windows go build -o ${BINARY_NAME}-windows main.go
-
-run:
- ./${BINARY_NAME}
-
-build_and_run: build run
-
-clean:
- go clean
- rm ${BINARY_NAME}-darwin
- rm ${BINARY_NAME}-linux
- rm ${BINARY_NAME}-windows
+compile:
+	echo "Compiling for every OS and Platform"
+	GOOS=freebsd GOARCH=386 go build -o bin/main-freebsd-386 main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o bin/main-linux-386 main.go
+	GOOS=windows GOARCH=386 go build -o bin/main-windows-386 main.go
