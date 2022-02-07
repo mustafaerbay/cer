@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source /etc/profile
 PACKAGE="github.com/mustafaerbay/cer"
 VERSION="$(git describe --tags --always --abbrev=0 --match='v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null | sed 's/^.//')"
 COMMIT_HASH="$(git rev-parse --short HEAD)"
