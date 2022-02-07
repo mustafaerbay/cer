@@ -11,6 +11,10 @@ LDFLAGS=(
   "-X 'cer/config.BuildTime=${BUILD_TIMESTAMP}'"
 )
 
+#export GITHUB_TOKEN=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
+#goreleaser . --rm-dist
+
 go build -ldflags="${LDFLAGS[*]}" -o dist/cer_linux_386/cer
 
 docker build .
+docker login --username anatolman --password ${DOCKER_PASSWORD}

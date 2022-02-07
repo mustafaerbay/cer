@@ -3,6 +3,7 @@ package internal
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"log"
 	"math"
@@ -11,6 +12,7 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
+	"github.com/xuri/excelize/v2"
 
 	_ "cer/config"
 	"cer/modals"
@@ -176,7 +178,7 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 		// d := time.
 		// fmt.Println(now.Sub(v.CreatedAt).Round(d))
 		fmt.Println("Created at: \t", v.CreatedAt.Format("2006-01-01"), "--->", Red(math.Round(now.Sub(v.CreatedAt).Hours()/24), " Days Ago"))
-		fmt.Println("Last Updated at: \t", Red(math.Round(now.Sub(v.UpdatedAt).Hours()/24), " Days Ago"))
+		fmt.Println("Last Updated at: \t\t", Red(math.Round(now.Sub(v.UpdatedAt).Hours()/24), " Days Ago"))
 		// fmt.Println("Updated at: ", v.UpdatedAt.Format("2006-01-01"))
 		fmt.Println("Created by: ", v.Author.Name)
 		fmt.Println("LINK:\t", v.WebURL)
@@ -188,5 +190,17 @@ func GetIssuesByName(client *http.Client, method string, endpoint string, perPag
 	//  fmt.Println(issueBody)
 	//  return responseBody
 	fmt.Println(Red("==========================================================================================================================================="))
+}
+
+func GetCol(f *excelize.File, sheet string, col rune) ([]string, error) {
+    colIndex := int(col) - 'A'
+    cols, err := f.GetCols(sheet)
+    if err != nil {
+        return nil, err
+    }
+    if colIndex >= len(cols) {
+        return nil, errors.New("column index out of bound")
+    }
+    return cols[colIndex], nil
 }
 

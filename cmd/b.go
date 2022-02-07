@@ -23,14 +23,15 @@ import (
 	"github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
 )
-
+var searchProject string
 // bCmd represents the issues command
 var bCmd = &cobra.Command{
 	Use:   "b",
-	Short: "issue list",
+	Short: "Project list by membership",
 	Long:  `Get issues with given filters`,
+	// Args : cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("issues called")
+		fmt.Println("b called")
 		yourtokengoeshere := viper.GetString("project.personal_access_token")
 		url := viper.GetString("project.repo_url")
 		git, err := gitlab.NewClient(
@@ -41,7 +42,16 @@ var bCmd = &cobra.Command{
 			log.Fatalf("Failed to create client: %v", err)
 		}
 
-		projects, _, err := git.Projects.ListProjects(nil)
+		projects, _, err := git.Projects.ListProjects(
+			&gitlab.ListProjectsOptions{
+				Membership: gitlab.Bool(true),
+				ListOptions: gitlab.ListOptions{
+					Page: 1,
+					PerPage: 100,
+				},
+				Search: gitlab.String(searchProject),
+			},
+			nil,)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -49,11 +59,17 @@ var bCmd = &cobra.Command{
 		log.Printf("Found %d projects", len(projects))
 
 		for _, v := range projects {
-			fmt.Println(v)
+			fmt.Println(v.Name,"|",v.CreatorID,"|",v.HTTPURLToRepo)
+			fmt.Println("--------------------------------")
 		}
+		// fmt.Print(projects[0])
+		fmt.Println(len(projects))
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(bCmd)
+	bCmd.Flags().StringVarP(&searchProject, "searchProject", "s", "", "project search")
+	bCmd.MarkFlagRequired("searchProject")
+	// bCmd.Flags()
 }

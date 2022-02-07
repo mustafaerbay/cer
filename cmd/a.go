@@ -27,10 +27,25 @@ import (
 // mCmd represents the m command
 var aCmd = &cobra.Command{
 	Use:   "a",
-	Short: "CCOMs issue list",
-	Long:  ` All CCOMs issue list in gitlab, according to related issue label`,
+	Short: "CCOMs issue list .cer.yaml dosyasindan okuyarak",
+	Long:  `
+Viper ile konfigurasyon nasil yapilabilir onun ornegi
+yaml formatinda config dosyasini tanimladiktan sonra parametreleri okuyabilirsiniz.
+ex: repo_url := viper.GetString("project.repo_url") 
+
+Config dosyasini bu sekilde disaridan tanimlayabilirsiniz
+
+project:
+    repo_url: https://rnd-gitlab-eu.huawei.com/
+    personal_access_token: 76GXFCsy6TNQjXwqszfG
+    username: m00483517
+name: mustafa
+
+go run .\main.go a --config ./asd.yml
+`,
+	// Args : cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("m called")
+		fmt.Println("a called")
 		repo_url := viper.GetString("project.repo_url")
 		endp := "api/v4/projects/5674/issues?"
 		repo := repo_url + endp

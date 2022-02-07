@@ -21,7 +21,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	// "github.com/spf13/viper"
 	"github.com/xanzy/go-gitlab"
 )
@@ -34,13 +33,26 @@ var cCmd = &cobra.Command{
 GITLAB_USER_PASSWORD has to be defined as an environment variable
 project.username has to be defined in .cer.yaml file`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("t called")
+		fmt.Println("c called")
+		fmt.Println("GITLAB_URL\t=",repo_url)
+		fmt.Println("USER_ID\t=",user_id)
 		_ , b := os.LookupEnv("GITLAB_USER_PASSWORD")
 		if  !b {
-			log.Fatal("GITLAB_USER_PASSWORD not exist in env variables")
+			log.Fatal(`
+		GITLAB_USER_PASSWORD not exist in env variables,
+		export GITLAB_USER_PASSWORD
+			usage:
+			
+			LINUX BASED:
+				export GITLAB_USER_PASSWORD=XXXXXXX
+			
+			WINDOWS:
+
+				$env:GITLAB_USER_PASSWORD='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'
+			`)
 		}
 		client, err := gitlab.NewBasicAuthClient(
-			viper.GetString("project.username"),
+			os.Getenv("GITLAB_USER_ID"),
 			os.Getenv("GITLAB_USER_PASSWORD"),
 			gitlab.WithBaseURL("https://rnd-gitlab-eu.huawei.com/"),
 		)
@@ -70,7 +82,10 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	cCmd.PersistentFlags().String("repo_url", "-r", "A help for foo")
+	cCmd.Flags().StringVarP(&repo_url, "repo_url", "r", "", "gitlab url required")
+	cCmd.MarkFlagRequired("repo_url")
+	cCmd.Flags().StringVarP(&user_id, "user_id", "u", "", "gitlab user id required")
+	cCmd.MarkFlagRequired("user_id")
 	cCmd.Flags()
 }
 
